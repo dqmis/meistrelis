@@ -8,12 +8,22 @@ namespace meistrelis.Data
     {
         public IEnumerable<User> GetAppUsers()
         {
-            throw new System.NotImplementedException();
+            var users = new List<User>
+            {
+                new User { Id = 1, Fullname = "Ponas Testas", Email = "test@testas.com", Password = "testavimas", IsMechanic = true },
+                new User { Id = 2, Fullname = "Ponia Teste", Email = "test2@testas.com", Password = "testavimas2", IsMechanic = false }
+
+            };
+            
+            return users;
         }
         
-        public IEnumerable<User> GetUserById(int id)
+        public User GetUserById(int id)
         {
-            throw new System.NotImplementedException();
+            return new User
+            {
+                Id = 1, Fullname = "Ponas Testas", Email = "test@testas.com", Password = "testavimas", IsMechanic = true
+            };
         }
     }
     

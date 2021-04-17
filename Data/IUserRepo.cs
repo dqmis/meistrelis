@@ -3,7 +3,7 @@ using meistrelis.Models;
 
 namespace meistrelis.Data
 {
-    public class IUserRepo
+    public interface IUserRepo
     {
         IEnumerable<User> GetAppUsers();
         User GetUserById(int id);

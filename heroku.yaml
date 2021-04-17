@@ -1,0 +1,5 @@
+build:
+  docker:
+    api: Dockerfile
+run:
+  api: -p 8080:80
