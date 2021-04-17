@@ -1,8 +1,0 @@
-{
-  "runtimeOptions": {
-    "additionalProbingPaths": [
-      "/Users/dqmis/.dotnet/store/|arch|/|tfm|",
-      "/Users/dqmis/.nuget/packages"
-    ]
-  }
-}
