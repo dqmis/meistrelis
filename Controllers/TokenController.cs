@@ -49,7 +49,7 @@ namespace meistrelis.Controllers
                     new Claim("Email", user.Email)
                    };
  
-                    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+                    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JWT_KEY") ?? _configuration["Jwt:Key"]));
  
                     var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
  
