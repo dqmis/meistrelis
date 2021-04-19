@@ -4,12 +4,9 @@ WORKDIR /app
 # Copy csproj and restore as distinct layers
 COPY *.csproj ./
 RUN dotnet restore
-RUN dotnet tool install --global dotnet-ef
-ENV PATH="$PATH:/root/.dotnet/tools"
 # Copy everything else and build
 COPY . ./
 RUN dotnet publish -c Release -o out
-RUN dotnet ef database update --connection $PSQL_CONNECTION
 
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:3.1

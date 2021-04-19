@@ -45,8 +45,12 @@ namespace meistrelis
             });
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, MeistrelisContext dataContext)
         {
+            if (dataContext.Database.GetPendingMigrations().Any()) {
+                dataContext.Database.Migrate();
+            }
+            
             app.UseSwagger();
             app.UseSwaggerUI( c=> {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Commander API V1");
@@ -67,6 +71,8 @@ namespace meistrelis
             {
                 endpoints.MapControllers();
             });
+            
+            
         }
     }
 }
