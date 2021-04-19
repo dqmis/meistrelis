@@ -8,10 +8,10 @@ RUN dotnet restore
 # Copy everything else and build
 COPY . ./
 RUN dotnet publish -c Release -o out
+RUN dotnet ef database update
 
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:3.1
 WORKDIR /app
 COPY --from=build-env /app/out .
-RUN dotnet ef database update
 CMD ASPNETCORE_URLS=http://*:$PORT PSQL_CONNECTION=$PSQL_CONNECTION JWT_KEY=$JWT_KEY dotnet meistrelis.dll
