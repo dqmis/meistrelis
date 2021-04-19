@@ -6,6 +6,11 @@ namespace meistrelis.Data
 {
     public class MockUserRepo : IUserRepo
     {
+        public bool SaveChanges()
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<User> GetAppUsers()
         {
             var users = new List<User>
@@ -24,6 +29,26 @@ namespace meistrelis.Data
             {
                 Id = 1, Fullname = "Ponas Testas", Email = "test@testas.com", Password = "testavimas", IsMechanic = true
             };
+        }
+
+        public void CreateUser(User usr)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateUser(User usr)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteUser(User usr)
+        {
+            throw new NotImplementedException();
+        }
+
+        public User GetUserByEmailAndPassword(string email, string password)
+        {
+            throw new NotImplementedException();
         }
     }
     

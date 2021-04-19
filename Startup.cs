@@ -12,6 +12,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using user.PostgreSQL;
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Serialization;
+
 
 namespace meistrelis
 {
@@ -26,8 +30,15 @@ namespace meistrelis
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
-            services.AddScoped<IUserRepo, MockUserRepo>();
+            services.AddDbContext<MeistrelisContext>(options =>
+                options.UseNpgsql(Configuration.GetConnectionString("PSQL")));
+            
+            services.AddControllers().AddNewtonsoftJson(s => {
+                s.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            });
+                
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddScoped<IUserRepo, SqlUserRepo>();
             
             services.AddSwaggerGen(c=> {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Mestrelis API", Version = "v1" });
