@@ -39,6 +39,7 @@ namespace meistrelis
                 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<IUserRepo, SqlUserRepo>();
+            services.AddScoped<IServiceRepo, SqlServiceRepo>();
             
             services.AddSwaggerGen(c=> {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Mestrelis API", Version = "v1" });
