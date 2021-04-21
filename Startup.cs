@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using meistrelis.Data;
+using meistrelis.Data.IRepos;
+using meistrelis.Data.SqlRepos;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -15,6 +17,9 @@ using Microsoft.OpenApi.Models;
 using user.PostgreSQL;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Serialization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 
 namespace meistrelis
@@ -33,13 +38,34 @@ namespace meistrelis
             services.AddDbContext<MeistrelisContext>(options =>
                 options.UseNpgsql(Environment.GetEnvironmentVariable("PSQL_CONNECTION") ?? Configuration.GetConnectionString("PSQL")));
             
-            services.AddControllers().AddNewtonsoftJson(s => {
+            
+            
+            services.AddControllers().AddNewtonsoftJson(s =>
+            {
                 s.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                s.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
+            
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            {
+                options.RequireHttpsMetadata = false;
+                options.SaveToken = true;
+                options.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidAudience = Configuration["Jwt:Audience"],
+                    ValidIssuer = Configuration["Jwt:Issuer"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+                };
+            });
+            
+            
                 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<IUserRepo, SqlUserRepo>();
             services.AddScoped<IServiceRepo, SqlServiceRepo>();
+            services.AddScoped<IUserServiceRepo, SqlUserServiceRepo>();
             
             services.AddSwaggerGen(c=> {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Mestrelis API", Version = "v1" });
@@ -65,6 +91,7 @@ namespace meistrelis
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

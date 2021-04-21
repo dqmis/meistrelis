@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace meistrelis.Models
@@ -19,5 +20,7 @@ namespace meistrelis.Models
         
         [Required]
         public bool IsMechanic { get; set; }
+        
+        public ICollection<UserService> UserServices { get; set; }
     }
 }

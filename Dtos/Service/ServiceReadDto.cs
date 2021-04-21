@@ -1,4 +1,4 @@
-namespace meistrelis.Dtos 
+namespace meistrelis.Dtos.Service 
 {
     public class ServiceReadDto
     {

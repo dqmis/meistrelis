@@ -1,15 +1,21 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using meistrelis.Data;
+using meistrelis.Data.IRepos;
 using meistrelis.Dtos;
+using meistrelis.Dtos.User;
 using meistrelis.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
+
 namespace meistrelis.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase

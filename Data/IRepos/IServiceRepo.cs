@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using meistrelis.Dtos;
 using meistrelis.Models;
 
-namespace meistrelis.Data
+namespace meistrelis.Data.IRepos
 {
     public interface IServiceRepo
     {
