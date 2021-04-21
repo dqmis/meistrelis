@@ -22,5 +22,7 @@ namespace meistrelis.Models
         public bool IsMechanic { get; set; }
         
         public ICollection<UserService> UserServices { get; set; }
+        public ICollection<UserRating> ReviewedUsers { get; set; }
+        public ICollection<UserRating> UserRatings { get; set; }
     }
 }

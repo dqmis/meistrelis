@@ -66,6 +66,7 @@ namespace meistrelis
             services.AddScoped<IUserRepo, SqlUserRepo>();
             services.AddScoped<IServiceRepo, SqlServiceRepo>();
             services.AddScoped<IUserServiceRepo, SqlUserServiceRepo>();
+            services.AddScoped<IUserRatingRepo, SqlUserRatingRepo>();
             
             services.AddSwaggerGen(c=> {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Mestrelis API", Version = "v1" });
