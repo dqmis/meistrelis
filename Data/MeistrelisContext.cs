@@ -12,6 +12,7 @@ namespace user.PostgreSQL
         public DbSet<User> Users { get; set; }
         public DbSet<Service> Services { get; set; }
         public DbSet<UserService> UserServices { get; set; }
+        public DbSet<UserRating> UserRatings { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -33,6 +34,17 @@ namespace user.PostgreSQL
                 .HasOne(bc => bc.User)
                 .WithMany(c => c.UserServices)
                 .HasForeignKey(bc => bc.UserId);
+            
+            modelBuilder.Entity<UserRating>()
+                .HasKey(bc => new { bc.ReviewerId, bc.RatedUserId });  
+            modelBuilder.Entity<UserRating>()
+                .HasOne(bc => bc.Reviewer)
+                .WithMany(b => b.UserRatings)
+                .HasForeignKey(bc => bc.ReviewerId);
+            modelBuilder.Entity<UserRating>()
+                .HasOne(bc => bc.RatedUser)
+                .WithMany(c => c.UserRatings)
+                .HasForeignKey(bc => bc.RatedUserId);
         }
     }
 }
