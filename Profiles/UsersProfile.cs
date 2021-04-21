@@ -1,5 +1,6 @@
 using AutoMapper;
 using meistrelis.Dtos;
+using meistrelis.Dtos.User;
 using meistrelis.Models;
 
 namespace meistrelis.Profiles 

@@ -2,11 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using meistrelis.Data.IRepos;
 using meistrelis.Models;
 using Microsoft.EntityFrameworkCore;
 using user.PostgreSQL;
 
-namespace meistrelis.Data
+namespace meistrelis.Data.SqlRepos
 {
     public class SqlUserRepo : IUserRepo
     {

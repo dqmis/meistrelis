@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using meistrelis.Dtos;
+using meistrelis.Dtos.User;
 using user.PostgreSQL;
 using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
 

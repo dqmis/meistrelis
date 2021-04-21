@@ -3,23 +3,14 @@ using System.ComponentModel.DataAnnotations;
 
 namespace meistrelis.Models
 {
-    public class User
+    public class Service
     {
         [Key]
         public int Id { get; set; }
         
         [Required]
         [MaxLength(250)]
-        public string Fullname { get; set; }
-        
-        [Required]
-        public string Email { get; set; }
-        
-        [Required]
-        public string Password { get; set; }
-        
-        [Required]
-        public bool IsMechanic { get; set; }
+        public string Title { get; set; }
         
         public ICollection<UserService> UserServices { get; set; }
     }
