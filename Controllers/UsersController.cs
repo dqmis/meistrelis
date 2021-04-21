@@ -64,32 +64,7 @@ namespace meistrelis.Controllers
 
             return NotFound();
         }
-
-        [HttpPatch("{id}")]
-        public ActionResult PartialUserUpdate(int id, JsonPatchDocument<UserUpdateDto> patchDocument)
-        {
-            var userModelFromRepo = _repository.GetUserById(id);
-            
-            if (userModelFromRepo != null)
-            {
-                var userToPath = _mapper.Map<UserUpdateDto>(userModelFromRepo);
-                patchDocument.ApplyTo(userToPath, ModelState);
-                if (!TryValidateModel(userToPath))
-                {
-                    return ValidationProblem(ModelState);
-                }
-
-                _mapper.Map(userToPath, userModelFromRepo);
-                _repository.UpdateUser(userModelFromRepo);
-                _repository.SaveChanges();
-
-                return NoContent();
-            }
-
-            return NotFound();
-            
-        }
-
+        
         [HttpPost]
         public ActionResult<UserReadDto> CreateUser(UserCreateDto createUserDto)
         {
@@ -110,20 +85,6 @@ namespace meistrelis.Controllers
             {
                 Id = userReadDto.Id
             }, userReadDto);
-        }
-
-        [HttpDelete("{id}")]
-        public ActionResult DeleteUser(int id)
-        {
-            var userModelFromRepo = _repository.GetUserById(id);
-            if (userModelFromRepo == null)
-            {
-                return NotFound();
-            }
-            _repository.DeleteUser(userModelFromRepo);
-            _repository.SaveChanges();
-
-            return NoContent();
         }
     }
 }
