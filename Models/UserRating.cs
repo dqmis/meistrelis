@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace meistrelis.Models
 {
@@ -11,11 +12,13 @@ namespace meistrelis.Models
         [Required]
         [MaxLength(250)]
         public string Description { get; set; }
+        
+        public int Score { get; set; }
 
         public int ReviewerId;
-        public User Reviewer;
-
         public int RatedUserId;
+        
+        public User Reviewer;
         public User RatedUser;
     }
 }

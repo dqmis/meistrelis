@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using meistrelis.Dtos;
+using meistrelis.Dtos.UserRating;
 using meistrelis.Models;
 
 namespace meistrelis.Data.IRepos
@@ -8,9 +9,10 @@ namespace meistrelis.Data.IRepos
     {
         bool SaveChanges();
         
-        IEnumerable<UserRating> GetUsersRatings(int userId);
         void RateUser(UserRating usrR);
+        UserRatingReadDto GetUserRatingByIds(int reviewerId, int ratedId);
+        UserRating GetUserRatingByIdsRepo(int reviewerId, int ratedId);
         void RemoveUserRating(UserRating usrR);
-        UserRating GetUserRatingByRatedUserId(int rUsrId);
+        IEnumerable<UserRating> GetUserRatingsByRatedUserId(int rUsrId);
     }
 }

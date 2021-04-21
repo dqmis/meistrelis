@@ -25,26 +25,19 @@ namespace user.PostgreSQL
                 .IsUnique(true);
             
             modelBuilder.Entity<UserService>()
-                .HasKey(bc => new { bc.UserId, bc.ServiceId });  
-            modelBuilder.Entity<UserService>()
-                .HasOne(bc => bc.Service)
-                .WithMany(b => b.UserServices)
-                .HasForeignKey(bc => bc.ServiceId);  
-            modelBuilder.Entity<UserService>()
-                .HasOne(bc => bc.User)
-                .WithMany(c => c.UserServices)
-                .HasForeignKey(bc => bc.UserId);
+                .HasKey(bc => new { bc.UserId, bc.ServiceId });
             
-            modelBuilder.Entity<UserRating>()
-                .HasKey(bc => new { bc.ReviewerId, bc.RatedUserId });  
-            modelBuilder.Entity<UserRating>()
-                .HasOne(bc => bc.Reviewer)
-                .WithMany(b => b.UserRatings)
-                .HasForeignKey(bc => bc.ReviewerId);
-            modelBuilder.Entity<UserRating>()
-                .HasOne(bc => bc.RatedUser)
-                .WithMany(c => c.UserRatings)
-                .HasForeignKey(bc => bc.RatedUserId);
+            modelBuilder.Entity<UserRating>().HasKey(x => new { x.RatedUserId, x.ReviewerId, x.Id});
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.ReviewedUsers)
+                .WithOne(f => f.Reviewer)
+                .HasForeignKey(f => f.ReviewerId);
+
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.UserRatings)
+                .WithOne(f => f.RatedUser)
+                .HasForeignKey(f => f.RatedUserId);
+
         }
     }
 }

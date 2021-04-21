@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using meistrelis.Data.IRepos;
+using meistrelis.Dtos.UserRating;
 using meistrelis.Dtos.UserService;
 using meistrelis.Migrations;
 using meistrelis.Models;
@@ -25,11 +26,6 @@ namespace meistrelis.Data.SqlRepos
             return (_context.SaveChanges() >= 0);
         }
 
-        public IEnumerable<UserRating> GetUsersRatings(int userId)
-        {
-            return _context.User
-        }
-
         public void RateUser(UserRating usrR)
         {
             if (usrR == null)
@@ -40,14 +36,36 @@ namespace meistrelis.Data.SqlRepos
             _context.Add(usrR);
         }
 
-        public void RemoveUserRating(UserRating usrR)
+        public UserRatingReadDto GetUserRatingByIds(int reviewerId, int ratedId)
         {
-            throw new NotImplementedException();
+            var q = _context.UserRatings.Where(r => r.ReviewerId == reviewerId);
+            return q.Where(r => r.RatedUserId == ratedId).Select(r => new UserRatingReadDto
+            {
+                ReviewerFullname = r.Reviewer.Fullname,
+                Description = r.Description,
+                Score = r.Score,
+            }).FirstOrDefault();
         }
 
-        public UserRating GetUserRatingByRatedUserId(int rUsrId)
+        public UserRating GetUserRatingByIdsRepo(int reviewerId, int ratedId)
         {
-            throw new NotImplementedException();
+            var q = _context.UserRatings.Where(r => r.ReviewerId == reviewerId);
+            return q.Where(r => r.RatedUserId == ratedId).FirstOrDefault();
+        }
+
+        public void RemoveUserRating(UserRating usrR)
+        {
+            if (usrR == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            _context.UserRatings.Remove(usrR);
+        }
+
+        public IEnumerable<UserRating> GetUserRatingsByRatedUserId(int rUsrId)
+        {
+            return _context.UserRatings.Where(r => r.RatedUserId == rUsrId).ToList();
         }
     }
 }
