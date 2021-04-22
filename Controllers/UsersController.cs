@@ -47,7 +47,9 @@ namespace meistrelis.Controllers
             var userItem = _repository.GetUserById(id);
             if (userItem != null)
             {
-                return Ok(_mapper.Map<UserReadDto>(userItem));
+                var mappedUser = _mapper.Map<UserReadDto>(userItem);
+                mappedUser.Rating = _repository.GetUsersRating(id);
+                return Ok(mappedUser);
             }
 
             return NotFound();
