@@ -44,6 +44,11 @@ namespace meistrelis.Controllers
             userRatingModel.ReviewerId = Int32.Parse(reviewerUserId);
             userRatingModel.RatedUserId = userId;
 
+            if (userRatingModel.Score < 1 && userRatingModel.Score > 5)
+            {
+                return BadRequest("Score should be between 1 and 5");
+            }
+
             try
             {
                 _repository.RateUser(userRatingModel);

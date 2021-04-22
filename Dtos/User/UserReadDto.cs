@@ -7,5 +7,6 @@ namespace meistrelis.Dtos.User
         public string Email { get; set; }
         public bool IsMechanic { get; set; }
         public string Phone { get; set; }
+        public double Rating { get; set; }
     }
 }

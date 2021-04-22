@@ -33,7 +33,12 @@ namespace meistrelis.Controllers
         public ActionResult <IEnumerable<UserReadDto>> GetAllUsers()
         {
             var userItems = _repository.GetAppUsers();
-            return Ok(_mapper.Map<IEnumerable<UserReadDto>>(userItems));
+            var mapped_users = _mapper.Map<IEnumerable<UserReadDto>>(userItems);
+            mapped_users.ToList().ForEach(u =>
+            {
+                u.Rating = _repository.GetUsersRating(u.Id);
+            });
+            return Ok(mapped_users);
         }
 
         [HttpGet("{id}", Name = "GetUserById")]
