@@ -13,6 +13,9 @@ namespace meistrelis.Dtos.User
         [MaxLength(250)]
         public string Email { get; set; }
         [Required]
+        [MaxLength(15)]
+        public string Phone { get; set; }
+        [Required]
         public bool IsMechanic { get; set; }
     }
 }

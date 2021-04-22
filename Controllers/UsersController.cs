@@ -48,9 +48,10 @@ namespace meistrelis.Controllers
             return NotFound();
         }
 
-        [HttpPut("{id}")]
-        public ActionResult UpdateUser(int id, UserUpdateDto userUpdateDto)
+        [HttpPut]
+        public ActionResult UpdateUser(UserUpdateDto userUpdateDto)
         {
+            var id = Int32.Parse(User.Claims.FirstOrDefault(c => c.Type == "Id").Value);
             var userModelFromRepo = _repository.GetUserById(id);
             
             if (userModelFromRepo != null)
