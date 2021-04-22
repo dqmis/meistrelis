@@ -33,7 +33,12 @@ namespace meistrelis.Controllers
         public ActionResult <IEnumerable<UserReadDto>> GetAllUsers()
         {
             var userItems = _repository.GetAppUsers();
-            return Ok(_mapper.Map<IEnumerable<UserReadDto>>(userItems));
+            var mapped_users = _mapper.Map<IEnumerable<UserReadDto>>(userItems);
+            mapped_users.ToList().ForEach(u =>
+            {
+                u.Rating = _repository.GetUsersRating(u.Id);
+            });
+            return Ok(mapped_users);
         }
 
         [HttpGet("{id}", Name = "GetUserById")]
@@ -42,15 +47,18 @@ namespace meistrelis.Controllers
             var userItem = _repository.GetUserById(id);
             if (userItem != null)
             {
-                return Ok(_mapper.Map<UserReadDto>(userItem));
+                var mappedUser = _mapper.Map<UserReadDto>(userItem);
+                mappedUser.Rating = _repository.GetUsersRating(id);
+                return Ok(mappedUser);
             }
 
             return NotFound();
         }
 
-        [HttpPut("{id}")]
-        public ActionResult UpdateUser(int id, UserUpdateDto userUpdateDto)
+        [HttpPut]
+        public ActionResult UpdateUser(UserUpdateDto userUpdateDto)
         {
+            var id = Int32.Parse(User.Claims.FirstOrDefault(c => c.Type == "Id").Value);
             var userModelFromRepo = _repository.GetUserById(id);
             
             if (userModelFromRepo != null)

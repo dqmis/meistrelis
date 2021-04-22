@@ -59,6 +59,17 @@ namespace meistrelis.Data.SqlRepos
             _context.Users.Remove(usr);
         }
 
+        public double GetUsersRating(int id)
+        {
+            var res = _context.UserRatings.Where(r => r.RatedUserId == id);
+            if (res.Any())
+            {
+                return res.Average(r => r.Score);
+            }
+
+            return 0;
+        }
+
         public User GetUserByEmailAndPassword(string email, string password)
         {
             return _context.Users.FirstOrDefault(u => u.Email == email && u.Password == password);

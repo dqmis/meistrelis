@@ -6,7 +6,9 @@ namespace meistrelis.Dtos.UserService
     {
         public string MechanicFullname{ get; set; }
         public string MechanicEmail { get; set; }
+        public string MechanicPhone { get; set; }
         public string ServiceTitle { get; set; }
+        public double MechanicRating { get; set; }
         public float Price { get; set; }
     }
 }

@@ -13,6 +13,7 @@ namespace meistrelis.Data.IRepos
         void CreateUser(User usr);
         void UpdateUser(User usr);
         void DeleteUser(User usr);
+        double GetUsersRating(int id);
         User GetUserByEmailAndPassword(string email, string password);
     }
 }

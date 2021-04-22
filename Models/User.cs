@@ -19,6 +19,10 @@ namespace meistrelis.Models
         public string Password { get; set; }
         
         [Required]
+        [MaxLength(15)]
+        public string Phone { get; set; }
+        
+        [Required]
         public bool IsMechanic { get; set; }
         
         public ICollection<UserService> UserServices { get; set; }
