@@ -15,7 +15,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace meistrelis.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
@@ -29,6 +28,7 @@ namespace meistrelis.Controllers
             _mapper = mapper;
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult <IEnumerable<UserReadDto>> GetAllUsers()
         {
@@ -41,6 +41,7 @@ namespace meistrelis.Controllers
             return Ok(mapped_users);
         }
 
+        [Authorize]
         [HttpGet("{id}", Name = "GetUserById")]
         public ActionResult<UserReadDto> GetUserById(int id)
         {
@@ -55,6 +56,7 @@ namespace meistrelis.Controllers
             return NotFound();
         }
 
+        [Authorize]
         [HttpPut]
         public ActionResult UpdateUser(UserUpdateDto userUpdateDto)
         {
