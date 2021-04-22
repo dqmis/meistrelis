@@ -21,11 +21,13 @@ namespace meistrelis.Controllers
     public class UserServicesController : ControllerBase
     {
         private readonly IUserServiceRepo _repository;
+        private readonly IUserRepo _userRepo;
         private readonly IMapper _mapper;
         
-        public UserServicesController(IUserServiceRepo repository, IMapper mapper)
+        public UserServicesController(IUserServiceRepo repository, IUserRepo userRepo, IMapper mapper)
         {
             _repository = repository;
+            _userRepo = userRepo;
             _mapper = mapper;
         }
 
@@ -34,6 +36,14 @@ namespace meistrelis.Controllers
         {
             var userId = User.Claims.FirstOrDefault(c => c.Type == "Id").Value;
             var userServiceModel = _mapper.Map<UserService>(usrServ);
+
+            var user = _userRepo.GetUserById(Int32.Parse(userId));
+
+            if (user == null || user.IsMechanic == false)
+            {
+                return BadRequest("Rights not granted");
+            }
+
             userServiceModel.UserId = Int32.Parse(userId);
             try
             {
