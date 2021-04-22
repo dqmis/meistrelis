@@ -46,7 +46,8 @@ namespace meistrelis.Data.SqlRepos
                 ServiceTitle = us.Service.Title,
                 MechanicEmail = us.User.Email,
                 MechanicFullname = us.User.Fullname,
-                MechanicPhone = us.User.Phone
+                MechanicPhone = us.User.Phone,
+                MechanicRating = us.User.UserRatings.Average(ur => (int?)ur.Score) ?? 0
             });
         }
         
@@ -58,7 +59,8 @@ namespace meistrelis.Data.SqlRepos
                 ServiceTitle = us.Service.Title,
                 MechanicEmail = us.User.Email,
                 MechanicFullname = us.User.Fullname,
-                MechanicPhone = us.User.Phone
+                MechanicPhone = us.User.Phone,
+                MechanicRating = us.User.UserRatings.Average(ur => (int?)ur.Score) ?? 0
             });
         }
 
@@ -71,7 +73,8 @@ namespace meistrelis.Data.SqlRepos
                 ServiceTitle = us.Service.Title,
                 MechanicEmail = us.User.Email,
                 MechanicFullname = us.User.Fullname,
-                MechanicPhone = us.User.Phone
+                MechanicPhone = us.User.Phone,
+                MechanicRating = us.User.UserRatings.Average(ur => (int?)ur.Score) ?? 0
             }).FirstOrDefault();
         }
         
