@@ -9,7 +9,6 @@ using meistrelis.Dtos;
 using meistrelis.Dtos.User;
 using meistrelis.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -21,7 +20,7 @@ namespace meistrelis.Controllers
     {
         private readonly IUserRepo _repository;
         private readonly IMapper _mapper;
-        
+
         public UsersController(IUserRepo repository, IMapper mapper)
         {
             _repository = repository;
@@ -30,7 +29,7 @@ namespace meistrelis.Controllers
 
         [Authorize]
         [HttpGet]
-        public ActionResult <IEnumerable<UserReadDto>> GetAllUsers()
+        public ActionResult<IEnumerable<UserReadDto>> GetAllUsers()
         {
             var userItems = _repository.GetAppUsers();
             var mapped_users = _mapper.Map<IEnumerable<UserReadDto>>(userItems);
@@ -62,7 +61,7 @@ namespace meistrelis.Controllers
         {
             var id = Int32.Parse(User.Claims.FirstOrDefault(c => c.Type == "Id").Value);
             var userModelFromRepo = _repository.GetUserById(id);
-            
+
             if (userModelFromRepo != null)
             {
                 _mapper.Map(userUpdateDto, userModelFromRepo);
@@ -74,7 +73,7 @@ namespace meistrelis.Controllers
 
             return NotFound();
         }
-        
+
         [HttpPost]
         public ActionResult<UserReadDto> CreateUser(UserCreateDto createUserDto)
         {

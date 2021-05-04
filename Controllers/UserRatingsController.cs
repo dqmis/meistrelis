@@ -35,7 +35,7 @@ namespace meistrelis.Controllers
         {
             return Ok(_repository.GetUserRatingsByRatedUserId(id));
         }
-        
+
         [HttpPost("{userId}")]
         public ActionResult<UserRatingReadDto> RateUser(int userId, UserRatingCreateDto usrCreateDto)
         {
@@ -73,13 +73,13 @@ namespace meistrelis.Controllers
             {
                 return NotFound();
             }
-            
+
             _repository.RemoveUserRating(reviewUserReviewModel);
             _repository.SaveChanges();
 
             return NoContent();
         }
-        
-        
+
+
     }
 }

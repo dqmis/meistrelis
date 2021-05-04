@@ -15,7 +15,7 @@ namespace meistrelis.Data.SqlRepos
     public class SqlUserRatingRepo : IUserRatingRepo
     {
         private readonly MeistrelisContext _context;
-        
+
         public SqlUserRatingRepo(MeistrelisContext context)
         {
             _context = context;

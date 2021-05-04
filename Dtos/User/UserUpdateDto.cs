@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace meistrelis.Dtos.User 
+namespace meistrelis.Dtos.User
 {
     public class UserUpdateDto
     {

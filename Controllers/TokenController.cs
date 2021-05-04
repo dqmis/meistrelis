@@ -23,13 +23,13 @@ namespace meistrelis.Controllers
     {
         public IConfiguration _configuration;
         private readonly MeistrelisContext _context;
- 
+
         public TokenController(IConfiguration config, MeistrelisContext context)
         {
             _configuration = config;
             _context = context;
         }
- 
+
         [HttpPost]
         public async Task<IActionResult> Post(UserAuthenticateDto _userData)
         {
@@ -37,7 +37,7 @@ namespace meistrelis.Controllers
             if (_userData != null && _userData.Email != null && _userData.Password != null)
             {
                 var user = await GetUser(_userData.Email);
- 
+
                 if (user != null && PasswordIsCorrect(_userData.Password, user))
                 {
                     //create claims details based on the user information
@@ -49,13 +49,13 @@ namespace meistrelis.Controllers
                     new Claim("Fullname", user.Fullname),
                     new Claim("Email", user.Email)
                    };
- 
+
                     var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JWT_KEY") ?? _configuration["Jwt:Key"]));
- 
+
                     var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
- 
+
                     var token = new JwtSecurityToken(_configuration["Jwt:Issuer"], _configuration["Jwt:Audience"], claims, expires: DateTime.UtcNow.AddDays(1), signingCredentials: signIn);
- 
+
                     return Ok(new JwtSecurityTokenHandler().WriteToken(token));
                 }
                 else
@@ -68,16 +68,16 @@ namespace meistrelis.Controllers
                 return BadRequest();
             }
         }
- 
+
         private async Task<User> GetUser(string email)
         {
-            
+
             return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
         }
 
         private bool PasswordIsCorrect(string password, User user)
         {
-            return BCrypt.Net.BCrypt.Verify(password, user.Password);   
+            return BCrypt.Net.BCrypt.Verify(password, user.Password);
         }
     }
 }

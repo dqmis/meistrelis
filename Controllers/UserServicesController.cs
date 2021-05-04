@@ -23,7 +23,7 @@ namespace meistrelis.Controllers
         private readonly IUserServiceRepo _repository;
         private readonly IUserRepo _userRepo;
         private readonly IMapper _mapper;
-        
+
         public UserServicesController(IUserServiceRepo repository, IUserRepo userRepo, IMapper mapper)
         {
             _repository = repository;
@@ -59,13 +59,13 @@ namespace meistrelis.Controllers
 
             return Ok(savedUserServ);
         }
-        
+
         [HttpPut("{serviceId}")]
-        public ActionResult <UserServiceReadDto> UpdateUserService(int serviceId, UserServiceUpdateDto usrServ)
+        public ActionResult<UserServiceReadDto> UpdateUserService(int serviceId, UserServiceUpdateDto usrServ)
         {
             var userId = Int32.Parse(User.Claims.FirstOrDefault(c => c.Type == "Id").Value);
             var userServiceFromRepo = _repository.GetUserServicesByUserAndServiceIdRepo(userId, serviceId);
-            
+
 
             if (userServiceFromRepo != null)
             {
@@ -78,17 +78,17 @@ namespace meistrelis.Controllers
         }
 
         [HttpGet]
-        public ActionResult <IEnumerable<UserServiceReadDto>> GetAllServices()
+        public ActionResult<IEnumerable<UserServiceReadDto>> GetAllServices()
         {
             var serviceItems = _repository.GetAppUserServices();
             return Ok(serviceItems);
         }
-        
+
         [HttpDelete("{serviceId}")]
         public ActionResult DeleteUserService(int serviceId)
         {
             var userId = Int32.Parse(User.Claims.FirstOrDefault(c => c.Type == "Id").Value);
-            var userServiceModelFromRepo = _repository.GetUserServicesByUserAndServiceIdRepo(userId,serviceId);
+            var userServiceModelFromRepo = _repository.GetUserServicesByUserAndServiceIdRepo(userId, serviceId);
             if (userServiceModelFromRepo == null)
             {
                 return NotFound();
@@ -110,7 +110,7 @@ namespace meistrelis.Controllers
 
             return NotFound();
         }
-        
+
         [HttpGet("service/{id}", Name = "GetUserServiceByServiceId")]
         public ActionResult<UserServiceReadDto> GetServiceByServiceId(int id)
         {

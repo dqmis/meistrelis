@@ -4,7 +4,7 @@ using meistrelis.Dtos.UserRating;
 using meistrelis.Dtos.UserService;
 using meistrelis.Models;
 
-namespace meistrelis.Profiles 
+namespace meistrelis.Profiles
 {
     public class UserRatingsProfile : Profile
     {

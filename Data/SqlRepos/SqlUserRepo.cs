@@ -12,7 +12,7 @@ namespace meistrelis.Data.SqlRepos
     public class SqlUserRepo : IUserRepo
     {
         private readonly MeistrelisContext _context;
-        
+
         public SqlUserRepo(MeistrelisContext context)
         {
             _context = context;
@@ -39,7 +39,7 @@ namespace meistrelis.Data.SqlRepos
             {
                 throw new ArgumentNullException(nameof(usr));
             }
-            
+
             usr.Password = BCrypt.Net.BCrypt.HashPassword(usr.Password);
 
             _context.Add(usr);
@@ -55,7 +55,7 @@ namespace meistrelis.Data.SqlRepos
             {
                 throw new ArgumentNullException(nameof(usr));
             }
-            
+
             _context.Users.Remove(usr);
         }
 

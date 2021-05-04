@@ -3,7 +3,7 @@ using meistrelis.Dtos;
 using meistrelis.Dtos.Service;
 using meistrelis.Models;
 
-namespace meistrelis.Profiles 
+namespace meistrelis.Profiles
 {
     public class ServicesProfile : Profile
     {

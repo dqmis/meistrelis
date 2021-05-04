@@ -7,18 +7,20 @@ using meistrelis.Data.IRepos;
 using meistrelis.Dtos;
 using meistrelis.Dtos.Service;
 using meistrelis.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace meistrelis.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ServicesController : ControllerBase
     {
         private readonly IServiceRepo _repository;
         private readonly IMapper _mapper;
-        
+
         public ServicesController(IServiceRepo repository, IMapper mapper)
         {
             _repository = repository;
@@ -26,7 +28,7 @@ namespace meistrelis.Controllers
         }
 
         [HttpGet]
-        public ActionResult <IEnumerable<ServiceReadDto>> GetAllServices()
+        public ActionResult<IEnumerable<ServiceReadDto>> GetAllServices()
         {
             var serviceItems = _repository.GetAppServices();
             return Ok(_mapper.Map<IEnumerable<ServiceReadDto>>(serviceItems));
