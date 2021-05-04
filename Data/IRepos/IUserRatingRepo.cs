@@ -8,7 +8,7 @@ namespace meistrelis.Data.IRepos
     public interface IUserRatingRepo
     {
         bool SaveChanges();
-        
+
         void RateUser(UserRating usrR);
         UserRatingReadDto GetUserRatingByIds(int reviewerId, int ratedId);
         UserRating GetUserRatingByIdsRepo(int reviewerId, int ratedId);

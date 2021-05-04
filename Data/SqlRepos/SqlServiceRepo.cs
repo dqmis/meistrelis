@@ -12,7 +12,7 @@ namespace meistrelis.Data.SqlRepos
     public class SqlServiceRepo : IServiceRepo
     {
         private readonly MeistrelisContext _context;
-        
+
         public SqlServiceRepo(MeistrelisContext context)
         {
             _context = context;

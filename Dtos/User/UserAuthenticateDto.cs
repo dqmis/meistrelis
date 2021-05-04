@@ -1,4 +1,4 @@
-namespace meistrelis.Dtos.User 
+namespace meistrelis.Dtos.User
 {
     public class UserAuthenticateDto
     {

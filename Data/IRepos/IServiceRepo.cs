@@ -7,7 +7,7 @@ namespace meistrelis.Data.IRepos
     public interface IServiceRepo
     {
         bool SaveChanges();
-        
+
         IEnumerable<Service> GetAppServices();
         Service GetServiceById(int id);
     }

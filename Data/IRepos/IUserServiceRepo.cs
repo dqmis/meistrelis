@@ -8,7 +8,7 @@ namespace meistrelis.Data.IRepos
     public interface IUserServiceRepo
     {
         bool SaveChanges();
-        
+
         IEnumerable<UserServiceReadDto> GetAppUserServices();
         IEnumerable<UserServiceReadDto> GetUserServicesByUserId(int id);
         IEnumerable<UserServiceReadDto> GetUserServicesByServiceId(int id);

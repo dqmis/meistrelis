@@ -7,7 +7,7 @@ namespace meistrelis.Data.IRepos
     public interface IUserRepo
     {
         bool SaveChanges();
-        
+
         IEnumerable<User> GetAppUsers();
         User GetUserById(int id);
         void CreateUser(User usr);

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using user.PostgreSQL;
@@ -9,9 +10,10 @@ using user.PostgreSQL;
 namespace meistrelis.Migrations
 {
     [DbContext(typeof(MeistrelisContext))]
-    partial class MeistrelisContextModelSnapshot : ModelSnapshot
+    [Migration("20210504174738_Reservations")]
+    partial class Reservations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -145,6 +147,12 @@ namespace meistrelis.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("meistrelis.Models.UserService", null)
+                        .WithMany("Reservations")
+                        .HasForeignKey("UserId", "ServiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("meistrelis.Models.UserRating", b =>
@@ -199,6 +207,11 @@ namespace meistrelis.Migrations
                     b.Navigation("UserRatings");
 
                     b.Navigation("UserServices");
+                });
+
+            modelBuilder.Entity("meistrelis.Models.UserService", b =>
+                {
+                    b.Navigation("Reservations");
                 });
 #pragma warning restore 612, 618
         }

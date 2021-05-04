@@ -14,7 +14,7 @@ namespace meistrelis.Data.SqlRepos
     public class SqlUserServiceRepo : IUserServiceRepo
     {
         private readonly MeistrelisContext _context;
-        
+
         public SqlUserServiceRepo(MeistrelisContext context)
         {
             _context = context;
@@ -40,7 +40,7 @@ namespace meistrelis.Data.SqlRepos
 
         public IEnumerable<UserServiceReadDto> GetUserServicesByUserId(int id)
         {
-            return _context.UserServices.Where(u=> u.UserId == id).Select(us => new UserServiceReadDto
+            return _context.UserServices.Where(u => u.UserId == id).Select(us => new UserServiceReadDto
             {
                 Price = us.Price,
                 ServiceTitle = us.Service.Title,
@@ -50,10 +50,10 @@ namespace meistrelis.Data.SqlRepos
                 MechanicRating = us.User.UserRatings.Average(ur => (int?)ur.Score) ?? 0
             });
         }
-        
+
         public IEnumerable<UserServiceReadDto> GetUserServicesByServiceId(int id)
         {
-            return _context.UserServices.Where(u=> u.ServiceId == id).Select(us => new UserServiceReadDto
+            return _context.UserServices.Where(u => u.ServiceId == id).Select(us => new UserServiceReadDto
             {
                 Price = us.Price,
                 ServiceTitle = us.Service.Title,
@@ -77,7 +77,7 @@ namespace meistrelis.Data.SqlRepos
                 MechanicRating = us.User.UserRatings.Average(ur => (int?)ur.Score) ?? 0
             }).FirstOrDefault();
         }
-        
+
         public UserService GetUserServicesByUserAndServiceIdRepo(int userId, int serviceId)
         {
             var userQuery = _context.UserServices.Where(us => us.UserId == userId);
@@ -90,7 +90,7 @@ namespace meistrelis.Data.SqlRepos
             {
                 throw new ArgumentNullException(nameof(userServ));
             }
-            
+
             _context.Add(userServ);
         }
 
@@ -104,7 +104,7 @@ namespace meistrelis.Data.SqlRepos
             {
                 throw new ArgumentNullException(nameof(userServ));
             }
-            
+
             _context.UserServices.Remove(userServ);
         }
     }
