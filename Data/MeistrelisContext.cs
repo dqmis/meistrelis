@@ -26,7 +26,7 @@ namespace user.PostgreSQL
                 .IsUnique(true);
 
             modelBuilder.Entity<UserService>()
-                .HasKey(bc => new { bc.UserId, bc.ServiceId });
+                .HasKey(bc => new { bc.UserId, bc.ServiceId, bc.Id });
 
             modelBuilder.Entity<UserRating>().HasKey(x => new { x.RatedUserId, x.ReviewerId, x.Id });
             modelBuilder.Entity<User>()

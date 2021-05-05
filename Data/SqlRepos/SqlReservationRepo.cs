@@ -24,6 +24,13 @@ namespace meistrelis.Data.SqlRepos
 
         public void CreateReservation(Reservation userR)
         {
+            var q = _context.Reservations.Where(r => r.Service.UserId == userR.Service.UserId);
+            var res = q.Where(r => r.ReservationDate == userR.ReservationDate).FirstOrDefault();
+
+            if (res != null)
+            {
+                throw new ArgumentException(nameof(userR));
+            }
             
             if (userR == null)
             {
