@@ -108,7 +108,11 @@ namespace meistrelis
                 dataContext.Database.Migrate();
             }
 
-            app.UseCors();
+            app.UseCors(builder => builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowAnyHeader());
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
