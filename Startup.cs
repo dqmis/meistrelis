@@ -108,7 +108,7 @@ namespace meistrelis
                 dataContext.Database.Migrate();
             }
 
-            app.UseCors("*");
+            app.UseCors();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
@@ -119,9 +119,7 @@ namespace meistrelis
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            app.UseHttpsRedirection();
-
+            
             app.UseRouting();
             app.UseAuthentication();
 
