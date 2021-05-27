@@ -109,7 +109,7 @@ namespace meistrelis
             }
 
             app.UseCors(builder => builder
-                .AllowAnyOrigin()
+                .WithOrigins("app.forestadmin.com")
                 .AllowAnyMethod()
                 .AllowAnyHeader()
                 .AllowAnyHeader());
