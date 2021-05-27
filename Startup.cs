@@ -108,7 +108,7 @@ namespace meistrelis
                 dataContext.Database.Migrate();
             }
 
-            app.UseCors("CorsPolicy");
+            app.UseCors("*");
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
