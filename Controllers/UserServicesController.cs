@@ -15,7 +15,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace meistrelis.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UserServicesController : ControllerBase
@@ -87,7 +86,7 @@ namespace meistrelis.Controllers
             return Ok(serviceItems);
         }
         
-        [HttpGet]
+        [HttpGet(Name = "GetAllServicesNoKey")]
         public ActionResult<IEnumerable<UserServiceReadDto>> GetAllServicesNoKey()
         {
             var serviceItems = _repository.GetAppUserServices();
