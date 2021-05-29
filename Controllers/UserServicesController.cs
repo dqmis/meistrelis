@@ -86,7 +86,7 @@ namespace meistrelis.Controllers
             return Ok(serviceItems);
         }
         
-        [HttpGet(Name = "GetAllServicesNoKey")]
+        [HttpGet("GetAllServicesNoKey")]
         public ActionResult<IEnumerable<UserServiceReadDto>> GetAllServicesNoKey()
         {
             var serviceItems = _repository.GetAppUserServices();
