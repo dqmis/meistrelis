@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using meistrelis.Data.IRepos;
+using meistrelis.Dtos.User;
 using meistrelis.Dtos.UserRating;
 using meistrelis.Dtos.UserService;
 using meistrelis.Migrations;
@@ -34,6 +35,11 @@ namespace meistrelis.Data.SqlRepos
             }
 
             _context.Add(usrR);
+        }
+
+        public List<int> GetRatedUsersIds(int reviewerId)
+        {
+            return _context.UserRatings.Where(r => r.ReviewerId == reviewerId).Select(r => r.RatedUserId).ToList();
         }
 
         public UserRatingReadDto GetUserRatingByIds(int reviewerId, int ratedId)
