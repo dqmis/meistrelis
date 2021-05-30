@@ -108,7 +108,8 @@ namespace meistrelis
                 dataContext.Database.Migrate();
             }
 
-            app.UseCors("CorsPolicy");
+            app.UseCors(
+                options=> options.WithOrigins("http://app.forestadmin.com", "https://app.forestadmin.com").AllowAnyMethod().AllowAnyHeader().AllowCredentials());
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {

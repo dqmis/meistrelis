@@ -15,7 +15,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace meistrelis.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UserServicesController : ControllerBase
@@ -31,6 +30,7 @@ namespace meistrelis.Controllers
             _mapper = mapper;
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult<UserServiceReadDto> CreateUserService(UserServiceCreateDto usrServ)
         {
@@ -60,6 +60,7 @@ namespace meistrelis.Controllers
             return Ok(savedUserServ);
         }
 
+        [Authorize]
         [HttpPut("{serviceId}")]
         public ActionResult<UserServiceReadDto> UpdateUserService(int serviceId, UserServiceUpdateDto usrServ)
         {
@@ -77,13 +78,22 @@ namespace meistrelis.Controllers
             return NotFound();
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult<IEnumerable<UserServiceReadDto>> GetAllServices()
         {
             var serviceItems = _repository.GetAppUserServices();
             return Ok(serviceItems);
         }
+        
+        [HttpGet("GetAllServicesNoKey")]
+        public ActionResult<IEnumerable<UserServiceReadDto>> GetAllServicesNoKey()
+        {
+            var serviceItems = _repository.GetAppUserServices();
+            return Ok(serviceItems);
+        }
 
+        [Authorize]
         [HttpDelete("{serviceId}")]
         public ActionResult DeleteUserService(int serviceId)
         {
@@ -99,6 +109,7 @@ namespace meistrelis.Controllers
             return NoContent();
         }
 
+        [Authorize]
         [HttpGet("user/{id}", Name = "GetUserServiceByUserId")]
         public ActionResult<UserServiceReadDto> GetServiceByUserId(int id)
         {
@@ -111,6 +122,7 @@ namespace meistrelis.Controllers
             return NotFound();
         }
 
+        [Authorize]
         [HttpGet("service/{id}", Name = "GetUserServiceByServiceId")]
         public ActionResult<UserServiceReadDto> GetServiceByServiceId(int id)
         {
