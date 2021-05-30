@@ -21,7 +21,7 @@ namespace meistrelis.Controllers
                     "v1beta1/projects/888184073798/locations/us-central1/models/ICN6419536022165520384:predict", Method.POST);
             req.RequestFormat = DataFormat.Json;
             req.AddJsonBody(requestData);
-            req.AddHeader("Authorization", Environment.GetEnvironmentVariable("PSQL_CONNECTION") ?? "");
+            req.AddHeader("Authorization", Environment.GetEnvironmentVariable("GCP") ?? "");
             var response = client.Execute(req);
             Console.Write(response);
             var parsedContent = JsonConvert.DeserializeObject<PicturePayloadDto>(response.Content);
