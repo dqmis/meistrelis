@@ -44,7 +44,7 @@ namespace meistrelis.Controllers
         }
         
         [Authorize]
-        [HttpGet]
+        [HttpGet("UnratedUsers")]
         public ActionResult<IEnumerable<UserReadDto>> GetUnratedUsers()
         {
             var id = Int32.Parse(User.Claims.FirstOrDefault(c => c.Type == "Id").Value);
