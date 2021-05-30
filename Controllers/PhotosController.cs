@@ -23,7 +23,6 @@ namespace meistrelis.Controllers
             req.AddJsonBody(requestData);
             req.AddHeader("Authorization", Environment.GetEnvironmentVariable("GCP") ?? "");
             var response = client.Execute(req);
-            Console.Write(response);
             var parsedContent = JsonConvert.DeserializeObject<PicturePayloadDto>(response.Content);
             var picResp =  new PictureResponseDto();
             picResp.Class = parsedContent.Payload.First().DisplayName;
