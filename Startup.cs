@@ -109,7 +109,7 @@ namespace meistrelis
             }
 
             app.UseCors(
-                options=> options.WithOrigins("http://app.forestadmin.com", "https://app.forestadmin.com").AllowAnyMethod().AllowAnyHeader().AllowCredentials());
+                options => options.WithOrigins("http://app.forestadmin.com", "https://app.forestadmin.com", "http://localhost:5000").AllowAnyMethod().AllowAnyHeader().AllowCredentials());
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {

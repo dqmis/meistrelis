@@ -6,7 +6,7 @@ using meistrelis.Data.IRepos;
 using meistrelis.Models;
 using user.PostgreSQL;
 
-namespace meistrelis.Data.SqlRepos 
+namespace meistrelis.Data.SqlRepos
 {
     public class SqlReservationRepo : IReservationRepo
     {
@@ -16,7 +16,7 @@ namespace meistrelis.Data.SqlRepos
         {
             _context = context;
         }
-        
+
         public bool SaveChanges()
         {
             return (_context.SaveChanges() >= 0);
@@ -24,7 +24,7 @@ namespace meistrelis.Data.SqlRepos
 
         public void CreateReservation(Reservation userR)
         {
-            
+
             if (userR == null)
             {
                 throw new ArgumentNullException(nameof(userR));
@@ -43,5 +43,5 @@ namespace meistrelis.Data.SqlRepos
             throw new System.NotImplementedException();
         }
     }
-    
+
 }

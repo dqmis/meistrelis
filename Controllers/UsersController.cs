@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
+using AutoMapper.Internal;
 using meistrelis.Data;
 using meistrelis.Data.IRepos;
 using meistrelis.Dtos;
@@ -20,11 +21,13 @@ namespace meistrelis.Controllers
     {
         private readonly IUserRepo _repository;
         private readonly IMapper _mapper;
+        private readonly IUserRatingRepo _ratingRepo;
 
-        public UsersController(IUserRepo repository, IMapper mapper)
+        public UsersController(IUserRepo repository, IMapper mapper, IUserRatingRepo ratingRepo)
         {
             _repository = repository;
             _mapper = mapper;
+            _ratingRepo = ratingRepo;
         }
 
         [Authorize]
@@ -32,6 +35,23 @@ namespace meistrelis.Controllers
         public ActionResult<IEnumerable<UserReadDto>> GetAllUsers()
         {
             var userItems = _repository.GetAppUsers();
+            var mapped_users = _mapper.Map<IEnumerable<UserReadDto>>(userItems);
+            mapped_users.ToList().ForEach(u =>
+            {
+                u.Rating = _repository.GetUsersRating(u.Id);
+            });
+            return Ok(mapped_users);
+        }
+
+        [Authorize]
+        [HttpGet("UnratedUsers")]
+        public ActionResult<IEnumerable<UserReadDto>> GetUnratedUsers()
+        {
+            var id = Int32.Parse(User.Claims.FirstOrDefault(c => c.Type == "Id").Value);
+            var userModelFromRepo = _repository.GetUserById(id);
+            var ratedUserIds = _ratingRepo.GetRatedUsersIds(id);
+            var userItems = _repository.GetAppUsers();
+            var ratedUsers = userItems.Where(u => !ratedUserIds.Contains(u.Id)).ToList();
             var mapped_users = _mapper.Map<IEnumerable<UserReadDto>>(userItems);
             mapped_users.ToList().ForEach(u =>
             {
