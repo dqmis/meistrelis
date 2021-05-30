@@ -16,5 +16,6 @@ namespace meistrelis.Data.IRepos
         UserRating GetUserRatingByIdsRepo(int reviewerId, int ratedId);
         void RemoveUserRating(UserRating usrR);
         IEnumerable<UserRating> GetUserRatingsByRatedUserId(int rUsrId);
+        IEnumerable<UserRating> GetUserRatings();
     }
 }

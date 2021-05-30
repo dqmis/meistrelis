@@ -35,6 +35,12 @@ namespace meistrelis.Controllers
         {
             return Ok(_repository.GetUserRatingsByRatedUserId(id));
         }
+        
+        [HttpGet]
+        public ActionResult<UserRating> GetUsersRatings()
+        {
+            return Ok(_repository.GetUserRatings());
+        }
 
         [HttpPost("{userId}")]
         public ActionResult<UserRatingReadDto> RateUser(int userId, UserRatingCreateDto usrCreateDto)
