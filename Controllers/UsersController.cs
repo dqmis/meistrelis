@@ -42,7 +42,7 @@ namespace meistrelis.Controllers
             });
             return Ok(mapped_users);
         }
-        
+
         [Authorize]
         [HttpGet("UnratedUsers")]
         public ActionResult<IEnumerable<UserReadDto>> GetUnratedUsers()

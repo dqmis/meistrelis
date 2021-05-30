@@ -14,7 +14,7 @@ namespace meistrelis.Controllers
         [HttpPost]
         public ActionResult<PictureResponseDto> GetPrediction(PictureSendDto pdt)
         {
-            var requestData = new {payload = new {image = new {imageBytes = pdt.Picture}}};
+            var requestData = new { payload = new { image = new { imageBytes = pdt.Picture } } };
             var client = new RestClient("https://automl.googleapis.com");
             var req =
                 new RestRequest(
@@ -24,10 +24,10 @@ namespace meistrelis.Controllers
             req.AddHeader("Authorization", Environment.GetEnvironmentVariable("GCP") ?? "");
             var response = client.Execute(req);
             var parsedContent = JsonConvert.DeserializeObject<PicturePayloadDto>(response.Content);
-            var picResp =  new PictureResponseDto();
+            var picResp = new PictureResponseDto();
             picResp.Class = parsedContent.Payload.First().DisplayName;
             return picResp;
         }
-        
+
     }
 }
