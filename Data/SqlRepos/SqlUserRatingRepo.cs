@@ -73,5 +73,10 @@ namespace meistrelis.Data.SqlRepos
         {
             return _context.UserRatings.Where(r => r.RatedUserId == rUsrId).ToList();
         }
+        
+        public IEnumerable<UserRating> GetUserRatings()
+        {
+            return _context.UserRatings.ToList();
+        }
     }
 }

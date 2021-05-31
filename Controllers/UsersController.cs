@@ -29,8 +29,7 @@ namespace meistrelis.Controllers
             _mapper = mapper;
             _ratingRepo = ratingRepo;
         }
-
-        [Authorize]
+        
         [HttpGet]
         public ActionResult<IEnumerable<UserReadDto>> GetAllUsers()
         {
